@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import sys
 from pprint import pprint
 
 possibilities = {"clouds", "cod", "coord", "dt", "id", "main", "name", "sys", "timezone", "visibility", "weather"}
@@ -13,15 +14,11 @@ _____________________________________________________________________________
 |___________________________________________________________________________|
 '''
 
-def API_Choice(the_API):
+def API_Choice(complete_url):
     api_key = "3765ece0add2b4d1a2211ebc344295e4"
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     city_name = input("Enter the city name : ")
     complete_url = base_url + "appid=" + api_key + "&q=" + city_name
-    response = requests.get(complete_url)
-    the_API = response.json()
-    pprint(the_API)
-    return the_API
 
 def user_choices(the_API):
     print(menu)
@@ -35,7 +32,10 @@ def user_choices(the_API):
         print("That is not possible. ")
 
 def runner_code():
-    API_Choice(the_API)
+    API_Choice(complete_url)
+    response = requests.get(complete_url)
+    the_API = response.json()
+    pprint(the_API)
     again = True
     while again:
         user_choices(the_API)
